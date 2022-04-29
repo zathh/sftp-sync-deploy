@@ -9,11 +9,11 @@
     "build": "tsc && tsc -d",
     "prepare": "npm run build"
   },
-  "author": "dobbydog",
+  "author": "wangyucode",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dobbydog/sftp-sync-deploy.git"
+    "url": "https://github.com/wangyucode/sftp-sync-deploy.git"
   },
   "files": [
     "index.js",
@@ -24,16 +24,15 @@
     "LICENSE"
   ],
   "dependencies": {
-    "@types/minimatch": "^3.0.3",
-    "@types/node": "^9.4.1",
-    "@types/ssh2": "^0.5.33",
-    "@types/ssh2-streams": "^0.1.2",
-    "chalk": "^2.3.0",
-    "minimatch": "^3.0.3",
-    "queue": "^5.0.0",
-    "ssh2": "^0.5.4"
+    "@types/minimatch": "^3.0.5",
+    "@types/node": "^16.11.7",
+    "@types/ssh2": "^0.5.52",
+    "chalk": "^5.0.1",
+    "minimatch": "^5.0.1",
+    "queue": "^6.0.2",
+    "ssh2": "^1.10.0"
   },
   "devDependencies": {
-    "typescript": "^2.7.1"
+    "typescript": "^4.6.4"
   }
 }
