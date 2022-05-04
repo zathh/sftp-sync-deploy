@@ -1,4 +1,4 @@
-import * as minimatch from 'minimatch';
+import minimatch from 'minimatch';
 import chalk from 'chalk';
 import * as path from 'path';
 import { SftpSyncOptions } from './config';

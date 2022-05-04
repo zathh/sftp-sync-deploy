@@ -1,5 +1,5 @@
-import { Client, SFTP_STATUS_CODE } from 'ssh2';
-import { Stats as SSH2Stats, FileEntry } from 'ssh2-streams';
+import { Client} from 'ssh2';
+import { Stats as SSH2Stats, FileEntry, SFTPStream } from 'ssh2-streams';
 import * as path from 'path';
 import * as fs from 'fs';
 import { chomp } from './util';
@@ -180,13 +180,13 @@ export class SftpSync {
         await this.queuifiedSftp.fastPut(localPath, remotePath);
       } catch (err) {
         switch (err.code) {
-          case SFTP_STATUS_CODE.NO_SUCH_FILE: {
-            throw new Error(`Remote Error: Cannot upload file ${remotePath}`);
+          case SFTPStream.STATUS_CODE.NO_SUCH_FILE: {
+            throw new Error(`Remote Error: Cannot upload file. No such file ${remotePath}`);
           }
-          case SFTP_STATUS_CODE.PERMISSION_DENIED: {
+          case SFTPStream.STATUS_CODE.PERMISSION_DENIED: {
             throw new Error(`Remote Error: Cannot upload file. Permission denied ${remotePath}`);
           }
-          case SFTP_STATUS_CODE.FAILURE: {
+          case SFTPStream.STATUS_CODE.FAILURE: {
             throw new Error(`Remote Error: Unknown error while uploading file ${remotePath}`);
           }
           default: throw err;
@@ -244,13 +244,13 @@ export class SftpSync {
       await this.queuifiedSftp.mkdir(remotePath);
     } catch (err) {
       switch (err.code) {
-        case SFTP_STATUS_CODE.NO_SUCH_FILE: {
+        case SFTPStream.STATUS_CODE.NO_SUCH_FILE: {
           throw new Error(`Remote Error: Cannot create directory ${remotePath}`);
         }
-        case SFTP_STATUS_CODE.PERMISSION_DENIED: {
+        case SFTPStream.STATUS_CODE.PERMISSION_DENIED: {
           throw new Error(`Remote Error: Cannot create directory. Permission denied ${remotePath}`);
         }
-        case SFTP_STATUS_CODE.FAILURE: {
+        case SFTPStream.STATUS_CODE.FAILURE: {
           throw new Error(`Remote Error: Unknown error while creating directory ${remotePath}`);
         }
         default: throw err;
@@ -332,7 +332,7 @@ export class SftpSync {
             await this.queuifiedSftp.close(buffer);
           }
         } catch (err) {
-          if (err.code === SFTP_STATUS_CODE.PERMISSION_DENIED) {
+          if (err.code === SFTPStream.STATUS_CODE.PERMISSION_DENIED) {
             table.set(file.filename, {remoteStat: 'error', remoteTimestamp: null});
           }
           return;

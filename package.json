@@ -1,11 +1,11 @@
 {
   "name": "@wangyucode/sftp-sync-deploy",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Sync local files to remote using SFTP.",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test.js",
     "build": "tsc && tsc -d",
     "prepare": "npm run build"
   },
@@ -27,10 +27,11 @@
     "@types/minimatch": "^3.0.5",
     "@types/node": "^16.11.7",
     "@types/ssh2": "^0.5.52",
-    "chalk": "^5.0.1",
+    "chalk": "^4.1.2",
     "minimatch": "^5.0.1",
     "queue": "^6.0.2",
-    "ssh2": "^1.10.0"
+    "ssh2": "^1.10.0",
+    "ssh2-streams": "^0.4.10"
   },
   "devDependencies": {
     "typescript": "^4.6.4"
