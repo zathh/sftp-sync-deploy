@@ -30,7 +30,7 @@ let options = {
   excludeMode: 'remove',          // Behavior for excluded files ('remove' or 'ignore'), Default to 'remove'.
   forceUpload: false,             // Force uploading all files, Default to false(upload only newer files).
   concurrency: 100,               // Max number of SFTP tasks processed concurrently. Default to 100.
-  removeExtraFiles: false         // Remove files on the target that are not present on the source or in the exclude list. Defaults to true.
+  keepExtraFiles: false           // Keeps files on the target that are not present on the source or in the exclude list. Defaults to false.
 };
 
 deploy(config, options).then(() => {

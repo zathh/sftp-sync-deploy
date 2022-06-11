@@ -58,7 +58,7 @@ export class SftpSync {
       exclude: [],
       excludeMode: 'remove',
       concurrency: 100,
-      removeExtraFiles: true,
+      keepExtraFiles: false,
       ...options,
     };
 
