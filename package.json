@@ -1,6 +1,6 @@
 {
-  "name": "@wangyucode/sftp-sync-deploy",
-  "version": "0.9.1",
+  "name": "@zathh/sftp-sync-deploy",
+  "version": "v0.9.2",
   "description": "Sync local files to remote using SFTP.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wangyucode/sftp-sync-deploy.git"
+    "url": "https://github.com/zathh/sftp-sync-deploy.git"
   },
   "files": [
     "index.js",
