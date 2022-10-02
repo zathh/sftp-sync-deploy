@@ -1,6 +1,6 @@
 {
   "name": "@wangyucode/sftp-sync-deploy",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Sync local files to remote using SFTP.",
   "main": "index.js",
   "types": "index.d.ts",
