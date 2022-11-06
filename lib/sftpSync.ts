@@ -1,4 +1,4 @@
-import { Client} from 'ssh2';
+import { Client } from 'ssh2';
 import { Stats as SSH2Stats, FileEntry, SFTPStream } from 'ssh2-streams';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -75,9 +75,9 @@ export class SftpSync {
 
     const { privateKey } = this.config;
 
-    if (privateKey){
-      if(privateKey.startsWith('---')) {
-         privKeyRaw = privateKey
+    if (privateKey) {
+      if (privateKey.startsWith('---')) {
+        privKeyRaw = privateKey
       } else {
         try {
           privKeyRaw = fs.readFileSync(this.config.privateKey);
@@ -279,10 +279,10 @@ export class SftpSync {
         files = fs.readdirSync(localPath);
       } catch (err) {
         switch (err.code) {
-          case 'ENOENT'  : throw new Error(`Local Error: No such directory ${localPath}`);
-          case 'ENOTDIR' : throw new Error(`Local Error: Not a directory ${localPath}`);
-          case 'EPERM'   : throw new Error(`Local Error: Cannot read directory. Permission denied ${localPath}`);
-          default        : throw err;
+          case 'ENOENT': throw new Error(`Local Error: No such directory ${localPath}`);
+          case 'ENOTDIR': throw new Error(`Local Error: Not a directory ${localPath}`);
+          case 'EPERM': throw new Error(`Local Error: Cannot read directory. Permission denied ${localPath}`);
+          default: throw err;
         }
       }
 
@@ -297,7 +297,7 @@ export class SftpSync {
           stat = fs.lstatSync(fullPath);
         } catch (err) {
           if (err.code === 'EPERM' || err.code === 'EACCES') {
-            table.set(filename, {localStat: 'error', localTimestamp: null});
+            table.set(filename, { localStat: 'error', localTimestamp: null });
           }
           return;
         }
@@ -315,7 +315,7 @@ export class SftpSync {
 
       try {
         files = await this.queuifiedSftp.readdir(remotePath);
-      } catch (err) {}
+      } catch (err) { }
 
       if (!files || !files.length) return;
 
@@ -329,12 +329,16 @@ export class SftpSync {
           if (stat.isDirectory()) {
             await this.queuifiedSftp.readdir(fullPath);
           } else {
-            const buffer = await this.queuifiedSftp.open(fullPath, 'r+');
-            await this.queuifiedSftp.close(buffer);
+            // some sftp servers empty the file doing this, even though it shouldn't as it is a read only buffer
+            // reading the whole file is not an option, it would take too much time
+            // so files are not tested for read permissions
+
+            //const buffer = await this.queuifiedSftp.open(fullPath, 'r+');
+            //await this.queuifiedSftp.close(buffer);
           }
         } catch (err) {
           if (err.code === SFTPStream.STATUS_CODE.PERMISSION_DENIED) {
-            table.set(file.filename, {remoteStat: 'error', remoteTimestamp: null});
+            table.set(file.filename, { remoteStat: 'error', remoteTimestamp: null });
           }
           return;
         }
